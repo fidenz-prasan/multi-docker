@@ -14,7 +14,14 @@ after_success:
   - docker build -t nimanthaprasan/multi-nginx ./nginx
   - docker build -t nimanthaprasan/multi-server ./server
   - docker build -t nimanthaprasan/multi-worker ./worker
-
+  # login into the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take all the built images and push to the DockerHub
+  - docker push nimanthaprasan/multi-client
+  - docker push nimanthaprasan/multi-nginx
+  - docker push nimanthaprasan/multi-server
+  - docker push nimanthaprasan/multi-worker
+  
 #deploy:
 #  provider: elasticbeanstalk
 #  region: "us-east-2"
